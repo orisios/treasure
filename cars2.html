@@ -9,28 +9,90 @@
     <h1>Гонки</h1>
     <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
     <script>
+        var speed = 50;
+        var shiftAmount = 5;
         var Car = function (x, y) {
             this.x = x;
             this.y = y;
+            var carHtml = '<img src="img/car.png">';
+            this.carElement = $(carHtml);
+            this.carElement.css({
+                position: "absolute",
+                left: this.x,
+                top: this.y
+    
+            })
+            $("body").append(this.carElement);
+            this.speed = speed;
+            
         };
        Car.prototype.draw = function () {
-           var carHtml = '<img src="img/car.png">';
-           this.carElement = $(carHtml);
+       };
+       Car.prototype.moveRight = function (shiftAmount) {
+
+           this.x += shiftAmount;
+           if (this.x >= 1100) {
+            this.x = 0;
+           
            this.carElement.css({
-               position: "absolute",
                left: this.x,
                top: this.y
-
-           })
-           $("body").append(this.carElement);
-
+           });
+        }
+           this.carElement.css({
+               left: this.x,
+               top: this.y
+           });
        };
+       Car.prototype.moveLeft = function (shiftAmount = 5) {
+           this.shiftAmount = shiftAmount;
+           this.x -= this.shiftAmount;
+           this.carElement.css({
+               left: this.x,
+               top: this.y
+           });
+       };
+       Car.prototype.moveUp = function (shiftAmount = 5) {
+           this.shiftAmount = shiftAmount;
+           this.y -= this.shiftAmount;
+           if (this.y <= 0) {
+            this.y = 500;
+           }
+           this.carElement.css({
+               left: this.x,
+               top: this.y
+           });
+       };
+       Car.prototype.moveDown = function (shiftAmount = 5) {
+           var carSpeed = shiftAmount || this.shiftAmount;
+           this.y += carSpeed ;
 
-       var tesla = new Car(20, 20);
+           this.carElement.css({
+               left: this.x,
+               top: this.y
+           });
+       };
+       
+       var tesla = new Car(20, 50);
        var nissan = new Car(100, 200);
+       var audi = new Car(500, 300);
 
-       tesla.draw();
-       nissan.draw();
+
+
+       setInterval(function () {
+        tesla.moveRight(Math.random() * 5);
+        nissan.moveRight(Math.random() * 5);
+    }, 30);
+
+
+
+
+
+
+
+
+
+
 
     </script>
 </body>
