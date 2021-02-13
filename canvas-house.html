@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+
+        ctx.fillStyle = "Blue";
+        ctx.beginPath();
+        ctx.moveTo(400, 100);
+        ctx.lineTo(400, 60);
+        ctx.lineTo(430, 30);
+        ctx.lineTo(460, 60);
+        ctx.lineTo(460, 100);
+        ctx.lineTo(400, 100);
+        ctx.fill();
+
+
+        ctx.strokeStyle = "Green";
+        ctx.beginPath();
+        ctx.arc(250, 50, 20, 0, Math.PI / 2, false);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(300, 50, 20, 0, Math.PI, false);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(350, 50, 20, 0, Math.PI * 2, false);
+        ctx.stroke();
+
+        var drawCircle = function (x, y, radius, fillCircle = false) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            if (fillCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            };
+            
+        }
+        ctx.fillStyle = "Black";
+        drawCircle(55, 55, 50, true);
+        ctx.strokeStyle = "Red";
+        for (i = 0; i < 5; i++) {
+            ctx.strokeStyle = '#' + (Math.random().toString(16) + '000000').substring(2,8).toUpperCase();
+            drawCircle(160, 57, i * 10);
+            
+        }
+        ctx.strokeStyle = "Black";
+        ctx.lineWidth = 3;
+        drawCircle(45, 155, 4, true);
+        drawCircle(55, 160, 25);
+        drawCircle(55, 220, 35);
+        drawCircle(65, 155, 4, true);
+        drawCircle(55, 205, 4, true);
+        drawCircle(55, 220, 4, true);
+        drawCircle(55, 235, 4, true);
+
+        ctx.fillStyle = "orange";
+        drawCircle(55, 165, 4, true);
+
+        var drawSnowman = function (x = 55, y = 160, ) {
+            ctx.fillStyle = "black";
+            ctx.lineWidth = 3;
+            drawCircle(x, y, 25);
+            drawCircle(x, y + 60, 35);
+            drawCircle(x - 10, y -5, 4, true);
+            drawCircle(x + 10, y -5, 4, true);
+            drawCircle(x, y + 45, 4, true);
+            drawCircle(x, y + 60, 4, true);
+            drawCircle(x, y + 75, 4, true);
+
+            ctx.fillStyle = "orange";
+            drawCircle(x, y + 5, 4, true);
+        }
+
+        drawSnowman(350, 200);
+
+        </script>
+</body>
+</html>

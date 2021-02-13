@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "LightSkyBlue";
+        ctx.fillRect(10, 10, 50, 100);
+        ctx.fillStyle = "SlateGrey";
+        ctx.fillRect(60, 10, 50, 100);
+        ctx.fillStyle = "DeepPink";
+        ctx.fillRect(110, 10, 50, 100);
+        ctx.fillStyle = "Black";
+        ctx.lineWidth = 3;
+        ctx.strokeRect(110, 10, 50, 100);
+
+        ctx.strokeStyle = "Green";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.moveTo(50, 160);
+        ctx.lineTo(100, 210);
+        ctx.moveTo(100, 160);
+        ctx.lineTo(50, 210);
+        ctx.stroke();
+
+        ctx.strokeStyle = "Red";
+        ctx.strokeRect(65, 260, 20, 20);
+        ctx.beginPath();
+        ctx.moveTo(75, 280);
+        ctx.lineTo(75, 340);
+        ctx.lineTo(50, 380);
+        ctx.moveTo(75, 340);
+        ctx.lineTo(100, 380);
+        ctx.moveTo(75, 300);
+        ctx.lineTo(50, 290);
+        ctx.moveTo(75, 300);
+        ctx.lineTo(100, 290);
+        ctx.stroke();
+        </script>
+</body>
+</html>
