@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas animation</title>
+</head>
+<body>
+    <canvas id="canvas" width="200" height="200" style="border: black solid 2px"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var pickColor = function (colors) {
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        var Ball = function () {
+            
+
+            this.x = 0;
+            this.y = 0;
+            this.xSpeed = Math.random() * 10 - 5;
+            this.ySpeed = Math.random() * 10 - 5;
+            var colors = ["Red", "Orange", "Yellow", "Green", "Blue", "Black", "Silver", "Gold"];
+            this.color = pickColor(colors);
+
+        };
+
+        var circle = function (x, y, radius, fillCircle) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            if (fillCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            }
+        };
+
+
+        Ball.prototype.draw = function () {
+            
+          
+            
+            ctx.fillStyle = this.color;
+            circle(this.x, this.y, 1, true);
+        };
+        Ball.prototype.move = function () {
+            this.x += this.xSpeed;
+            this.y += this.ySpeed;
+        };
+        Ball.prototype.checkCollision = function () {
+            if (this.x < 0 || this.x > canvas.width) {
+                this.xSpeed = -this.xSpeed;
+            }
+            if (this.y < 0 || this.y > canvas.height) {
+                this.ySpeed = -this.ySpeed;
+            }
+        }
+        
+        var ball = new Ball();
+        var balls = [];
+        for (var i = 0; i < 10; i++) {
+            balls[i] = new Ball();
+        }
+        setInterval(function () {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (var i = 0; i < balls.length; i++) {
+
+                balls[i].draw();
+                balls[i].move();
+                balls[i].checkCollision();
+            }
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        }, 10);
+
+
+        // Math.floor(Math.random() * 10 - 5);
+    </script>
+
+
+
+</body>
+</html>

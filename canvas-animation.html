@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas animation</title>
+</head>
+<body>
+    <canvas id="canvas" width="500" height="500" style="border: black solid 2px"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var positionX = 250;
+        var positionY = 250;
+
+        var drawCircle = function (x, y, radius, fillCircle = false) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            if (fillCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            }; 
+        }
+
+        var drawBee = function () {
+            ctx.lineWidth = 3;
+            drawCircle(positionX, positionY, 15);
+            ctx.fillStyle = "gold";
+            drawCircle(positionX, positionY, 13, true);
+            drawCircle(positionX - 4, positionY - 3, 4);
+            drawCircle(positionX + 4, positionY - 3, 4);
+            drawCircle(positionX - 10, positionY -22, 10);
+            drawCircle(positionX + 10, positionY -22, 10);
+        }
+
+        var update = function (coordinate) {
+            var offset = Math.random() * 4 - 2;
+            coordinate += offset;
+
+            if (coordinate < 0) {
+                coordinate = 0;
+            }
+
+            if (coordinate > 500) {
+                coordinate = 500;
+            }
+
+            return coordinate;
+        }
+
+        
+        setInterval(function () {
+            ctx.clearRect(0, 0, 500, 500);
+            drawBee();
+            positionX = update(positionX);
+            positionY = update(positionY);
+
+        }, 0.1);
+
+        
+    </script>
+</body>
+</html>

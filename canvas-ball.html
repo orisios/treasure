@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas animation</title>
+</head>
+<body>
+    <canvas id="canvas" width="1260" height="857" style="border: black solid 2px"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        
+        var Ball = function () {
+            this.x = 0;
+            this.y = 0;
+            this.xSpeed = Math.random() * 10 - 5;
+            this.ySpeed = Math.random() * 10 - 5;
+        };
+
+        var circle = function (x, y, radius, fillCircle) {
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2, false);
+            if (fillCircle) {
+                ctx.fill();
+            } else {
+                ctx.stroke();
+            }
+        };
+        Ball.prototype.draw = function () {
+            circle(this.x, this.y, 3, true);
+        };
+        Ball.prototype.move = function () {
+            this.x += this.xSpeed;
+            this.y += this.ySpeed;
+        };
+        Ball.prototype.checkCollision = function () {
+            if (this.x < 0 || this.x > canvas.width) {
+                this.xSpeed *= -1;
+            }
+            if (this.y < 0 || this.y > canvas.height) {
+                this.ySpeed *= -1;
+            }
+        }
+        
+        var ball = new Ball();
+        setInterval(function () {
+
+            ball.draw();
+            ball.move();
+            ball.checkCollision();
+            ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        }, 1);
+        
+    </script>
+
+</body>
+</html>
