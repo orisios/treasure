@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Змейка</title>
+</head>
+<body>
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <script src="https://code.jquery.com/jquery-2.1.0.js"></script>
+    <script>
+        /*
+        Настроить "холст"
+        Установить счёт игры в 0
+        Создать змейку
+        Создать яблоко
+        Каждые 100 миллисекунда {
+            Очистить холст
+            Напечатать текущий счёт игры
+            Сдвинуть змейку в текущем направлении
+            Если змейка столкнулась со стеной или своим хвостом {
+                Закончить игру
+            } Иначе Если змейка съела яблоко {
+                Увеличить счёт на 1
+                Переместить яблоко на новое место
+                Увеличить длинну змейки
+            }
+            Для каждого сегмента тела змейки {
+                Нарисовать сегмент
+            }
+
+            Нарисовать яблоко
+            Нарисовать рамку
+        }
+        Когда игрок нажмёт клавишу {
+            Если это клавиша стрелка {
+                Обновить направление движения змейки
+            }
+        }
+        */
+        var canvas = document.getElementById("canvas");
+        var ctx = canvas.getContext("2d");
+        var width = canvas.width;
+        var height = canvas.height;
+        var blockSize = 10;
+        var widthInBlocks = width / blockSize;
+        var heightInBlocks = height / blockSize;
+        var score = 0;
+
+        var drawBorder = function () {
+            ctx.fillStyle = "Grey";
+            ctx.fillRect(0, 0, width, blockSize);
+            ctx.fillRect(0, height - blockSize, width, blockSize);
+            ctx.fillRect(0, 0, blockSize, height);
+            ctx.fillRect(width - blockSize, 0, blockSize, height);
+        };
+        var drawScore = function () {
+
+            ctx.fillStyle = "Black";
+            ctx.font = "20px Courier";
+            ctx.textAlign = "left";
+            ctx.textBaseline = "top";
+            ctx.fillText("Счёт: " + score, blockSize, blockSize);
+        };
+        var gameOver = function () {
+            clearInterval(IntervalId);
+            ctx.font = "60px Courier";
+            ctx.fillStyle = "Black";
+            ctx.textAlign = "center";
+            ctx.textBaseline = "middle";
+            ctx.fillText("Конец игры", width / 2, height / 2);
+        };
+        setInterval(function () {
+            ctx.clearRect(0, 0, width, height);
+            score++;
+            drawScore();
+            drawBorder();
+        }, 100);
+        
+        </script>
+
+
+
+</body>
+</html>
